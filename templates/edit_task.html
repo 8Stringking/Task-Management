@@ -7,9 +7,9 @@
         <form class="col s12" method="POST" action="{{ url_for('edit_task', task_id=task._id) }}">
             <!--drop down select-->
             <div class="row">
-                <div class="input-field col s12">
+				<div class="input-field col s12">
                     <i class="fas fa-folder-open prefix amber-text text-darken-1"></i>
-                    <select id="category_name" name="category_name" class="validate" required>
+					<select id="category_name" name="category_name" class="validate" required>
                         <option value="" disabled>Choose Category</option>
                         {% for category in categories %}
                             {% if category.category_name == task.category_name %}
