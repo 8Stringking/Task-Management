@@ -8,7 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
     import env
 
-
+ 
 app = Flask(__name__)
 
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
@@ -22,6 +22,13 @@ mongo = PyMongo(app)
 @app.route("/get_tasks")
 def get_tasks():
     tasks = list(mongo.db.tasks.find())
+    return render_template("tasks.html", tasks=tasks)
+
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get("query")
+    tasks = list(mongo.db.tasks.find({"$text": {"$search": query}}))
     return render_template("tasks.html", tasks=tasks)
 
 
